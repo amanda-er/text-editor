@@ -18,13 +18,32 @@ module.exports = () => {
       path: path.resolve(__dirname, 'dist'),
     },
     plugins: [
-      
+      new HtmlWebpackPlugin({
+        template: "./index.html",
+        title: "Webpack Plugin",
+      }),
+      new WebpackPwaManifest({
+        fingerprints: false,
+        inject: true,
+        name: "Just another text editor",
+        short_name: "JATE",
+        description: "text editor",
+        start_url: "/",
+        publicPath: "/",
+      }),
     ],
 
     module: {
       rules: [
-        
-      ],
+        {
+          test: /\.css$/i,
+          use: ["style-loader", "css-loader"],
+        },
+        {
+          test: /\.(png|svg|jpg|gif)$/i,
+          type: "asset/resource",
+        },
+        ],
     },
   };
 };
